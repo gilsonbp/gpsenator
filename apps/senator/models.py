@@ -73,3 +73,26 @@ class Mandate(models.Model):
     class Meta:
         verbose_name = 'Mandate'
         verbose_name_plural = 'Mandates'
+
+
+class Alternate(models.Model):
+    """
+    Model of the Alternate.
+    Using fields similar to those returned on the endpoint.
+    """
+    mandate = models.ForeignKey(
+        Mandate, verbose_name='Mandate', on_delete=models.CASCADE)
+    codigo_parlamentar = models.IntegerField(
+        verbose_name='Código Parlamentar', null=True)
+    descricao_participacao = models.CharField(
+        max_length=100, verbose_name='Descrição Participação', null=True)
+    nome_parlamentar = models.CharField(
+        max_length=250, verbose_name='Nome Parlamentar', null=True)
+
+    def __str__(self):
+        return '%s - %s' % (self.nome_parlamentar, self.descricao_participacao)
+
+    class Meta:
+        unique_together = ('mandate', 'codigo_parlamentar')
+        verbose_name = 'Alternate'
+        verbose_name_plural = 'Alternates'
