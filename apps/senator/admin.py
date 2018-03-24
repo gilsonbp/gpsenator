@@ -31,3 +31,13 @@ class ParliamentarianAdmin(admin.ModelAdmin):
     search_fields = ['codigo', 'nome', 'nome_completo', 'sigla_partido']
     list_filter = ['sigla_partido', 'uf']
     list_per_page = 40
+
+
+@admin.register(Mandate)
+class MandateAdmin(admin.ModelAdmin):
+    list_display = ['codigo', 'parliamentarian', 'descricao_participacao', 'uf']
+    list_display_links = list_display
+    search_fields = ['codigo', 'parliamentarian__nome', 'parliamentarian__nome_completo', 'parliamentarian__sigla_partido']
+    list_filter = ['descricao_participacao', 'parliamentarian__sigla_partido', 'uf']
+    list_per_page = 40
+    autocomplete_fields = ['parliamentarian']
