@@ -68,7 +68,7 @@ class Mandate(models.Model):
         max_length=250, verbose_name='Nome Parlamentar (Titular)', null=True)
 
     def __str__(self):
-        return '%s - %s' % (self.codigo, self.parlamentar.nome)
+        return '%s - %s' % (self.codigo, self.parliamentarian.nome)
 
     class Meta:
         verbose_name = 'Mandate'
@@ -115,7 +115,7 @@ class Exercise(models.Model):
     data_leitura = models.DateField(verbose_name='Data Leitura', null=True)
 
     def __str__(self):
-        return '%s - %s' % (self.mandato.descricao_participacao, self.codigo)
+        return '%s - %s' % (self.mandate.descricao_participacao, self.codigo)
 
     class Meta:
         verbose_name = 'Exercise'
