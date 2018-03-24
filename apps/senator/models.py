@@ -37,3 +37,39 @@ class Parliamentarian(models.Model):
         permissions = (
             ('update_parliamentarians', 'Update Parliamentarians'),
         )
+
+
+class Mandate(models.Model):
+    """
+    Model of the mandate.
+    Using fields similar to those returned on the endpoint.
+    """
+    parliamentarian = models.ForeignKey(
+        Parliamentarian, verbose_name='Parliamentarian', on_delete=models.CASCADE)
+    codigo = models.IntegerField(verbose_name='Código', primary_key=True)
+    uf = models.CharField(max_length=2, verbose_name='UF', null=True)
+    pl_numero = models.IntegerField('Número Primeira Legislatura', null=True)
+    pl_data_inicio = models.DateField(
+        verbose_name='Data Início Primeira Legislatura', null=True)
+    pl_data_fim = models.DateField(
+        verbose_name='Data Fim Primeira Legislatura', null=True)
+    sl_numero = models.IntegerField('Número Segunda Legislatura', null=True)
+    sl_data_inicio = models.DateField(
+        verbose_name='Data Início Segunda Legislatura', null=True)
+    sl_data_fim = models.DateField(
+        verbose_name='Data Fim Segunda Legislatura', null=True)
+    descricao_participacao = models.CharField(
+        max_length=100, verbose_name='Descrição Participação', null=True)
+    t_descricao_participacao = models.CharField(max_length=100, verbose_name='Descrição Participação (Titular)',
+                                                null=True)
+    t_codigo_parlamentar = models.IntegerField(
+        verbose_name='Código Parlamentar (Titular)', null=True)
+    t_nome_parlamentar = models.CharField(
+        max_length=250, verbose_name='Nome Parlamentar (Titular)', null=True)
+
+    def __str__(self):
+        return '%s - %s' % (self.codigo, self.parlamentar.nome)
+
+    class Meta:
+        verbose_name = 'Mandate'
+        verbose_name_plural = 'Mandates'
