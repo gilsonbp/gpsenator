@@ -9,6 +9,7 @@ from django.shortcuts import redirect
 from django.urls import path
 from django.utils.decorators import method_decorator
 
+from apps.senator.import_senators import ImportSenatorJSON
 from apps.senator.models import (Parliamentarian, Mandate, Alternate, Exercise)
 
 __author__ = "Gilson Paulino"
@@ -31,6 +32,31 @@ class ParliamentarianAdmin(admin.ModelAdmin):
     search_fields = ['codigo', 'nome', 'nome_completo', 'sigla_partido']
     list_filter = ['sigla_partido', 'uf']
     list_per_page = 40
+
+    def get_urls(self):
+        urls = super().get_urls()
+        my_urls = [
+            path('update-parliamentarians', self.update_parliamentarians,
+                 name='update_parliamentarians'),
+        ]
+        return my_urls + urls
+
+    @method_decorator(permission_required('senator.update_parliamentarians', raise_exception=True))
+    def update_parliamentarians(self, request):
+        url = "http://legis.senado.gov.br/dadosabertos/senador/lista/atual"
+        headers = {
+            'Accept': "application/json",
+        }
+        response = requests.request("GET", url, headers=headers)
+        jsonresponse = json.loads(response.text)
+
+        rows = ImportSenatorJSON.parliamentarian(jsonresponse)
+
+        self.message_user(
+            request, 'Update performed successfully!', messages.SUCCESS)
+        self.message_user(
+            request, '%s parliamentarians were imported.' % rows, messages.INFO)
+        return redirect('admin:senator_parliamentarian_changelist')
 
 
 @admin.register(Mandate)
