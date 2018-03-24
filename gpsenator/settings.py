@@ -5,6 +5,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ADMINS = (('Gilson Paulino', 'gilsonbp@gmail.com'),)
 MANAGERS = ADMINS
 
+SECRET_KEY = 'w%g%=_s7!#y9y(3q5fm#4rawy-5pvh5p7al0!cy7ym+zywck@^'
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 DEBUG = True
