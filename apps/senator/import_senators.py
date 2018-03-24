@@ -6,7 +6,7 @@ __copyright__ = "Copyright 2018"
 __email__ = "gilsonbp@gmail.com"
 
 
-class ImportJSON(object):
+class ImportSenatorJSON(object):
     """
     Importing parliamentarians through the endpoint (http://legis.senado.gov.br/dadosabertos/senador/lista/atual)
     """
