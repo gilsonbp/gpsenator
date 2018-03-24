@@ -35,9 +35,23 @@ class ParliamentarianAdmin(admin.ModelAdmin):
 
 @admin.register(Mandate)
 class MandateAdmin(admin.ModelAdmin):
-    list_display = ['codigo', 'parliamentarian', 'descricao_participacao', 'uf']
+    list_display = ['codigo', 'parliamentarian',
+                    'descricao_participacao', 'uf']
     list_display_links = list_display
-    search_fields = ['codigo', 'parliamentarian__nome', 'parliamentarian__nome_completo', 'parliamentarian__sigla_partido']
-    list_filter = ['descricao_participacao', 'parliamentarian__sigla_partido', 'uf']
+    search_fields = ['codigo', 'parliamentarian__nome',
+                     'parliamentarian__nome_completo', 'parliamentarian__sigla_partido']
+    list_filter = ['descricao_participacao',
+                   'parliamentarian__sigla_partido', 'uf']
     list_per_page = 40
     autocomplete_fields = ['parliamentarian']
+
+
+@admin.register(Alternate)
+class AlternateAdmin(admin.ModelAdmin):
+    list_display = ['codigo_parlamentar',
+                    'nome_parlamentar', 'descricao_participacao']
+    list_display_links = list_display
+    search_fields = ['codigo_parlamentar',
+                     'nome_parlamentar', 'descricao_participacao']
+    list_per_page = 40
+    autocomplete_fields = ['mandate']
