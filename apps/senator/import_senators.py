@@ -31,7 +31,7 @@ class ImportSenatorJSON(object):
             if idp.get('CodigoParlamentar', False):  # Checking if there is a parliamentary code
 
                 # Recording the handles in the database
-                parliamentarian = Parlamentar.objects.create(
+                parliamentarian = Parliamentarian.objects.create(
                     codigo=idp.get('CodigoParlamentar'),
                     nome=idp.get('NomeParlamentar', None),
                     nome_completo=idp.get('NomeCompletoParlamentar', None),
