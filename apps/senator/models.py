@@ -96,3 +96,27 @@ class Alternate(models.Model):
         unique_together = ('mandate', 'codigo_parlamentar')
         verbose_name = 'Alternate'
         verbose_name_plural = 'Alternates'
+
+
+class Exercise(models.Model):
+    """
+    Model of the Exercise.
+    Using fields similar to those returned on the endpoint.
+    """
+    codigo = models.IntegerField(verbose_name='Código', primary_key=True)
+    mandate = models.ForeignKey(
+        Mandate, verbose_name='Mandate', on_delete=models.CASCADE)
+    data_inicio = models.DateField(verbose_name='Data de Início', null=True)
+    data_fim = models.DateField(verbose_name='Data de Fim', null=True)
+    sigla_causa_afastamento = models.CharField(
+        max_length=20, verbose_name='Sigla Causa Afastamento', null=True)
+    descricao_causa_afastamento = models.CharField(max_length=250, verbose_name='Descrição Causa Afastamento',
+                                                   null=True)
+    data_leitura = models.DateField(verbose_name='Data Leitura', null=True)
+
+    def __str__(self):
+        return '%s - %s' % (self.mandato.descricao_participacao, self.codigo)
+
+    class Meta:
+        verbose_name = 'Exercise'
+        verbose_name_plural = 'Exercises'
