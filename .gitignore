@@ -1,0 +1,10 @@
+*.pyc
+/.idea/
+/media/
+/env/
+gpsenator/local_settings.py
+/staticbuild/
+.error.log
+/logs/
+/.vscode/
+db.sqlite3
