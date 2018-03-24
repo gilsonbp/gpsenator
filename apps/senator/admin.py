@@ -55,3 +55,13 @@ class AlternateAdmin(admin.ModelAdmin):
                      'nome_parlamentar', 'descricao_participacao']
     list_per_page = 40
     autocomplete_fields = ['mandate']
+
+
+@admin.register(Exercise)
+class ExerciseAdmin(admin.ModelAdmin):
+    list_display = ['codigo', 'mandate', 'data_inicio', 'data_fim']
+    list_display_links = list_display
+    search_fields = ['codigo', 'mandate__parliamentarian__nome',
+                     'mandate__parliamentarian__nome_completo']
+    list_per_page = 40
+    autocomplete_fields = ['mandate']
